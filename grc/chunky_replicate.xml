@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<block>
+  <name>replicate</name>
+  <key>chunky_replicate</key>
+  <category>chunky</category>
+  <import>import chunky</import>
+  <make>chunky.replicate(gr.sizeof_float, $k)</make>
+
+  <param>
+    <name>k</name>
+    <key>k</key>
+    <value>2</value>
+    <type>int</type>
+  </param>
+
+  <sink>
+    <name>in</name>
+    <type>float</type>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>float</type>
+  </source>
+</block>

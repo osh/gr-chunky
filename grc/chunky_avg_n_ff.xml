@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<block>
+  <name>avg_n_ff</name>
+  <key>chunky_avg_n_ff</key>
+  <category>chunky</category>
+  <import>import chunky</import>
+  <make>chunky.avg_n_ff($k)</make>
+
+  <param>
+    <name>k</name>
+    <key>k</key>
+    <value>3</value>
+    <type>int</type>
+  </param>
+
+  <sink>
+    <name>in</name>
+    <type>float</type>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>float</type>
+  </source>
+</block>
