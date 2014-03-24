@@ -18,5 +18,7 @@
 # Boston, MA 02110-1301, USA.
 install(FILES
     chunky_replicate.xml
-    chunky_avg_n_ff.xml DESTINATION share/gnuradio/grc/blocks
+    chunky_avg_n_ff.xml
+    chunky_replicate_fpdu.xml
+    chunky_avg_n_fpdu.xml DESTINATION share/gnuradio/grc/blocks
 )

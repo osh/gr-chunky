@@ -23,5 +23,7 @@
 install(FILES
     api.h
     replicate.h
-    avg_n_ff.h DESTINATION include/chunky
+    avg_n_ff.h
+    replicate_fpdu.h
+    avg_n_fpdu.h DESTINATION include/chunky
 )

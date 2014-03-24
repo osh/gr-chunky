@@ -10,9 +10,15 @@
 %{
 #include "chunky/replicate.h"
 #include "chunky/avg_n_ff.h"
+#include "chunky/replicate_fpdu.h"
+#include "chunky/avg_n_fpdu.h"
 %}
 
 %include "chunky/replicate.h"
 GR_SWIG_BLOCK_MAGIC2(chunky, replicate);
 %include "chunky/avg_n_ff.h"
 GR_SWIG_BLOCK_MAGIC2(chunky, avg_n_ff);
+%include "chunky/replicate_fpdu.h"
+GR_SWIG_BLOCK_MAGIC2(chunky, replicate_fpdu);
+%include "chunky/avg_n_fpdu.h"
+GR_SWIG_BLOCK_MAGIC2(chunky, avg_n_fpdu);

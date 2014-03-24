@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<block>
+  <name>replicate_fpdu</name>
+  <key>chunky_replicate_fpdu</key>
+  <category>chunky</category>
+  <import>import chunky</import>
+  <make>chunky.replicate_fpdu($k)</make>
+  
+  <param>
+    <name>k</name>
+    <key>k</key>
+    <value>2</value>
+    <type>int</type>
+  </param>
+
+  <sink>
+    <name>fpdus</name>
+    <type>message</type>
+    <optional>1</optional>
+  </sink>
+
+  <source>
+    <name>fpdus</name>
+    <type>message</type>
+    <optional>1</optional>
+  </source>
+</block>
