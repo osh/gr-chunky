@@ -28,7 +28,8 @@ list(APPEND chunky_sources
     replicate_impl.cc
     avg_n_ff_impl.cc
     replicate_fpdu_impl.cc
-    avg_n_fpdu_impl.cc )
+    avg_n_fpdu_impl.cc
+    source_impl.cc )
 
 set(chunky_sources "${chunky_sources}" PARENT_SCOPE)
 if(NOT chunky_sources)
