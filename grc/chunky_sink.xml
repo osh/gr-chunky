@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<block>
+  <name>sink</name>
+  <key>chunky_sink</key>
+  <category>chunky</category>
+  <import>import chunky</import>
+  <make>chunky.sink()</make>
+  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
+       Sub-nodes:
+       * name
+       * key (makes the value accessible as $keyname, e.g. in the make node)
+  <param>
+    <name>...</name>
+    <key>...</key>
+    <type>...</type>
+  </param>
+       * type -->
+  <sink>
+    <name>in</name>
+    <type>float</type>
+    <optional>1</optional>
+  </sink>
+
+  <sink>
+    <name>pdus</name>
+    <type>message</type>
+    <optional>1</optional>
+  </sink>
+
+</block>

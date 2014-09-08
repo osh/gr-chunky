@@ -21,5 +21,6 @@ install(FILES
     chunky_avg_n_ff.xml
     chunky_replicate_fpdu.xml
     chunky_avg_n_fpdu.xml
-    chunky_source.xml DESTINATION share/gnuradio/grc/blocks
+    chunky_source.xml
+    chunky_sink.xml DESTINATION share/gnuradio/grc/blocks
 )

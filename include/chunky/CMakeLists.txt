@@ -26,5 +26,6 @@ install(FILES
     avg_n_ff.h
     replicate_fpdu.h
     avg_n_fpdu.h
-    source.h DESTINATION include/chunky
+    source.h
+    sink.h DESTINATION include/chunky
 )
