@@ -85,26 +85,19 @@ namespace gr {
                        gr_vector_const_void_star &input_items,
                        gr_vector_void_star &output_items)
     {   
-        //printf("work.\n");
         if(output_items.size() > 0){
-            //printf("call work chunk.\n");
             std::pair<pmt::pmt_t, int> p = work_chunk(d_max, output_items);
-            add_item_tag( 0, nitems_written(0), pmt::mp("packet_len"), pmt::mp(p.second) );
+            add_item_tag( 0, nitems_written(0), pmt::mp("packet_len"), pmt::from_long(p.second), pmt::PMT_NIL );
 
+            // set metadata 
             for( pmt::pmt_t kl = pmt::dict_keys(p.first); 
                     !pmt::eq(kl, pmt::PMT_NIL);
                     kl = pmt::cdr(kl) ){
-                    
                     pmt::pmt_t k = pmt::car(kl);
                     pmt::pmt_t v = pmt::dict_ref(p.first, k, pmt::PMT_NIL);
-                    //pmt::print( k );
-                    //pmt::print( v );
-
                     add_item_tag( 0, nitems_written(0), k, v );
             }
 
-            // set metadata 
-            //printf("second = %d\n", p.second);
             return p.second;
         }
         return 0;

@@ -38,7 +38,8 @@ namespace gr {
     sink_impl::sink_impl(int maxlen)
       : gr::block("sink",
               gr::io_signature::make(0,1, sizeof(float)),
-              gr::io_signature::make(0,0,0))
+              gr::io_signature::make(0,0,0)),
+        d_nitems(0), d_npkts(0), d_ts(0)
     {
         message_port_register_in(pmt::mp("pdus"));
         set_msg_handler(pmt::mp("pdus"),
@@ -66,6 +67,7 @@ namespace gr {
         const float *in = (const float *) input_items[0];
         std::vector<tag_t> tags;
         get_tags_in_range(tags, 0, nitems_read(0), nitems_read(0)+1);
+        //get_tags_in_range(tags, 0, nitems_read(0), nitems_read(0)+1);
         if(tags.size() == 0){
             throw std::runtime_error("expected stream tag ....\n");
             }
@@ -73,15 +75,15 @@ namespace gr {
         pmt::pmt_t dict = pmt::make_dict();
         for(int i=0; i<tags.size(); i++){
             dict = pmt::dict_add(dict, tags[i].key, tags[i].value);
-            if(pmt::eq(tags[i].key, pmt::mp("packet_len")))
+            if(pmt::eqv(tags[i].key, pmt::mp("packet_len"))){
                 len = pmt::to_long(tags[i].value);
+                }
             }
         if(len <= 0 || len > ninput_items[0]){
             throw std::runtime_error("stream block size out of range\n");
             }
 
         work_chunk( dict, gr_vector_int(1,len), gr_vector_const_void_star(1,input_items[0]) );
-
         consume_each(len);
         return len;
     }
@@ -89,8 +91,26 @@ namespace gr {
     void 
     sink_impl::work_chunk(pmt::pmt_t meta, gr_vector_int ninput_items, gr_vector_const_void_star input_items)
     {
-        printf("work_chunk.\n");
-        sleep(1);
+        d_npkts ++;
+        d_nitems += ninput_items[0];
+
+        int update_modulo = 10000;
+        int seq = pmt::to_uint64(pmt::dict_ref(meta, pmt::mp("seq"), pmt::PMT_NIL));
+
+        if(seq % update_modulo == 0){
+        boost::posix_time::ptime mst1 = boost::posix_time::microsec_clock::local_time();
+        int tx_time = pmt::to_uint64(pmt::dict_ref(meta, pmt::mp("time"), pmt::PMT_NIL));
+        int rx_time = mst1.time_of_day().total_microseconds();
+        int latency_us = rx_time - tx_time;
+
+        if(d_ts == 0){
+            d_ts = rx_time;
+        } else {
+            float tp_items = d_nitems*1e6/(rx_time-d_ts);
+            float tp_pkts = d_npkts*1e6/(rx_time-d_ts);
+            printf("%d,%d,%d,%f,%f\n", seq, rx_time, latency_us, tp_items, tp_pkts);
+            }
+        }
     }
 
   }

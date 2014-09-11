@@ -31,7 +31,10 @@ namespace gr {
      private:
       void work_chunk(pmt::pmt_t meta, gr_vector_int ninput_items, gr_vector_const_void_star input_items);
       void handler(pmt::pmt_t msg);
-    
+      uint64_t d_nitems;
+      uint64_t d_npkts;
+      uint64_t d_ts;
+     
      public:
       sink_impl(int maxlen);
       ~sink_impl();
