@@ -23,7 +23,7 @@
 #define INCLUDED_CHUNKY_SINK_H
 
 #include <chunky/api.h>
-#include <gnuradio/tagged_stream_block.h>
+#include <gnuradio/block.h>
 
 namespace gr {
   namespace chunky {
@@ -33,7 +33,7 @@ namespace gr {
      * \ingroup chunky
      *
      */
-    class CHUNKY_API sink : virtual public gr::tagged_stream_block
+    class CHUNKY_API sink : virtual public gr::block
     {
      public:
       typedef boost::shared_ptr<sink> sptr;
@@ -46,7 +46,7 @@ namespace gr {
        * class. chunky::sink::make is the public interface for
        * creating new instances.
        */
-      static sptr make();
+      static sptr make(int maxlen);
     };
 
   } // namespace chunky

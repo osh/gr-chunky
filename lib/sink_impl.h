@@ -29,17 +29,15 @@ namespace gr {
     class sink_impl : public sink
     {
      private:
-      // Nothing to declare in this block.
-
-     protected:
-      int calculate_output_stream_length(const gr_vector_int &ninput_items);
-
+      void work_chunk(pmt::pmt_t meta, gr_vector_int ninput_items, gr_vector_const_void_star input_items);
+      void handler(pmt::pmt_t msg);
+    
      public:
-      sink_impl();
+      sink_impl(int maxlen);
       ~sink_impl();
 
       // Where all the action really happens
-      int work(int noutput_items,
+      int general_work(int noutput_items,
 		       gr_vector_int &ninput_items,
 		       gr_vector_const_void_star &input_items,
 		       gr_vector_void_star &output_items);

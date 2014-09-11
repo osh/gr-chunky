@@ -4,17 +4,13 @@
   <key>chunky_sink</key>
   <category>chunky</category>
   <import>import chunky</import>
-  <make>chunky.sink()</make>
-  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
-       Sub-nodes:
-       * name
-       * key (makes the value accessible as $keyname, e.g. in the make node)
+  <make>chunky.sink($maxlen)</make>
   <param>
-    <name>...</name>
-    <key>...</key>
-    <type>...</type>
+    <name>maxlen</name>
+    <key>maxlen</key>
+    <value>200</value>
+    <type>int</type>
   </param>
-       * type -->
   <sink>
     <name>in</name>
     <type>float</type>

@@ -29,40 +29,70 @@ namespace gr {
   namespace chunky {
 
     sink::sptr
-    sink::make()
+    sink::make(int maxlen)
     {
       return gnuradio::get_initial_sptr
-        (new sink_impl());
+        (new sink_impl(maxlen));
     }
 
-    sink_impl::sink_impl()
-      : gr::tagged_stream_block("sink",
+    sink_impl::sink_impl(int maxlen)
+      : gr::block("sink",
               gr::io_signature::make(0,1, sizeof(float)),
-              gr::io_signature::make(0,0,0), "packet_len")
-    {}
+              gr::io_signature::make(0,0,0))
+    {
+        message_port_register_in(pmt::mp("pdus"));
+        set_msg_handler(pmt::mp("pdus"),
+            boost::bind(&sink_impl::handler, this, _1));
+    }
 
     sink_impl::~sink_impl()
     {
     }
 
-    int
-    sink_impl::calculate_output_stream_length(const gr_vector_int &ninput_items)
+    void
+    sink_impl::handler(pmt::pmt_t pdu)
     {
-      int noutput_items = 200;
-      return noutput_items ;
+        pmt::pmt_t meta = pmt::car(pdu);
+        pmt::pmt_t vec = pmt::cdr(pdu);
+        work_chunk( meta, gr_vector_int(1,pmt::length(vec)), gr_vector_const_void_star(1,pmt::blob_data(vec)) );
     }
-
+    
     int
-    sink_impl::work (int noutput_items,
+    sink_impl::general_work (int noutput_items,
                        gr_vector_int &ninput_items,
                        gr_vector_const_void_star &input_items,
                        gr_vector_void_star &output_items)
     {
         const float *in = (const float *) input_items[0];
-        printf("noutput_items = %d\n", noutput_items);
-        return noutput_items;
+        std::vector<tag_t> tags;
+        get_tags_in_range(tags, 0, nitems_read(0), nitems_read(0)+1);
+        if(tags.size() == 0){
+            throw std::runtime_error("expected stream tag ....\n");
+            }
+        int len = -1;
+        pmt::pmt_t dict = pmt::make_dict();
+        for(int i=0; i<tags.size(); i++){
+            dict = pmt::dict_add(dict, tags[i].key, tags[i].value);
+            if(pmt::eq(tags[i].key, pmt::mp("packet_len")))
+                len = pmt::to_long(tags[i].value);
+            }
+        if(len <= 0 || len > ninput_items[0]){
+            throw std::runtime_error("stream block size out of range\n");
+            }
+
+        work_chunk( dict, gr_vector_int(1,len), gr_vector_const_void_star(1,input_items[0]) );
+
+        consume_each(len);
+        return len;
     }
 
-  } /* namespace chunky */
-} /* namespace gr */
+    void 
+    sink_impl::work_chunk(pmt::pmt_t meta, gr_vector_int ninput_items, gr_vector_const_void_star input_items)
+    {
+        printf("work_chunk.\n");
+        sleep(1);
+    }
+
+  }
+}
 
