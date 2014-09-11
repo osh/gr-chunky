@@ -105,6 +105,7 @@ namespace gr {
 
         if(d_ts == 0){
             d_ts = rx_time;
+            printf("seq,rx_time,latency_us,throughput items,throughput packets\n");
         } else {
             float tp_items = d_nitems*1e6/(rx_time-d_ts);
             float tp_pkts = d_npkts*1e6/(rx_time-d_ts);

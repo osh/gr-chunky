@@ -21,14 +21,14 @@
   </param>
 
   <source>
-    <name>pdus</name>
-    <type>message</type>
+    <name>tagged_item_stream</name>
+    <type>float</type>
     <optional>1</optional>
   </source>
 
   <source>
-    <name>tagged_item_stream</name>
-    <type>float</type>
+    <name>pdus</name>
+    <type>message</type>
     <optional>1</optional>
   </source>
 </block>
