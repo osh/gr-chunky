@@ -2,7 +2,7 @@
 ##################################################
 # Gnuradio Python Flow Graph
 # Title: Test Pdu
-# Generated: Thu Sep 11 17:12:18 2014
+# Generated: Fri Sep 12 05:59:01 2014
 ##################################################
 
 from gnuradio import eng_notation
@@ -22,11 +22,13 @@ class test_pdu(gr.top_block):
         ##################################################
         self.chunky_source_0 = chunky.source(100, 200)
         self.chunky_sink_0 = chunky.sink(200)
+        self.chunky_avg_n_fpdu_0 = chunky.avg_n_fpdu(3)
 
         ##################################################
         # Asynch Message Connections
         ##################################################
-        self.msg_connect(self.chunky_source_0, "pdus", self.chunky_sink_0, "pdus")
+        self.msg_connect(self.chunky_source_0, "pdus", self.chunky_avg_n_fpdu_0, "fpdus")
+        self.msg_connect(self.chunky_avg_n_fpdu_0, "fpdus", self.chunky_sink_0, "pdus")
 
 
 if __name__ == '__main__':

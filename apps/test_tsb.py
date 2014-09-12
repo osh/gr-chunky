@@ -2,7 +2,7 @@
 ##################################################
 # Gnuradio Python Flow Graph
 # Title: Test Tsb
-# Generated: Thu Sep 11 17:12:37 2014
+# Generated: Fri Sep 12 05:59:10 2014
 ##################################################
 
 from gnuradio import eng_notation
@@ -18,28 +18,19 @@ class test_tsb(gr.top_block):
         gr.top_block.__init__(self, "Test Tsb")
 
         ##################################################
-        # Variables
-        ##################################################
-        self.samp_rate = samp_rate = 32000
-
-        ##################################################
         # Blocks
         ##################################################
         self.chunky_source_0 = chunky.source(100, 200)
         self.chunky_sink_0 = chunky.sink(200)
+        self.chunky_avg_n_ff_0 = chunky.avg_n_ff(3)
 
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.chunky_source_0, 0), (self.chunky_sink_0, 0))
+        self.connect((self.chunky_source_0, 0), (self.chunky_avg_n_ff_0, 0))
+        self.connect((self.chunky_avg_n_ff_0, 0), (self.chunky_sink_0, 0))
 
 
-
-    def get_samp_rate(self):
-        return self.samp_rate
-
-    def set_samp_rate(self, samp_rate):
-        self.samp_rate = samp_rate
 
 if __name__ == '__main__':
     parser = OptionParser(option_class=eng_option, usage="%prog: [options]")
