@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='ASCII'?>
 <?grc format='1' created='3.7.6'?>
 <flow_graph>
-  <timestamp>Wed Sep 17 11:07:38 2014</timestamp>
+  <timestamp>Wed Sep 17 11:25:27 2014</timestamp>
   <block>
     <key>blocks_message_strobe</key>
     <param>
@@ -1199,6 +1199,10 @@
       <value>200</value>
     </param>
     <param>
+      <key>exitafter</key>
+      <value>int(1e6)</value>
+    </param>
+    <param>
       <key>alias</key>
       <value></value>
     </param>
@@ -1262,7 +1266,7 @@
     <key>options</key>
     <param>
       <key>id</key>
-      <value>test_tsb_0</value>
+      <value>test_tsb_b0</value>
     </param>
     <param>
       <key>_enabled</key>
