@@ -34,9 +34,10 @@ namespace gr {
       uint64_t d_nitems;
       uint64_t d_npkts;
       uint64_t d_ts;
-     
+      int d_exitafter;
+    
      public:
-      sink_impl(int maxlen);
+      sink_impl(int maxlen, int exitafter);
       ~sink_impl();
 
       // Where all the action really happens

@@ -4,13 +4,22 @@
   <key>chunky_sink</key>
   <category>chunky</category>
   <import>import chunky</import>
-  <make>chunky.sink($maxlen)</make>
+  <make>chunky.sink($maxlen, $exitafter)</make>
+
   <param>
     <name>maxlen</name>
     <key>maxlen</key>
     <value>200</value>
     <type>int</type>
   </param>
+
+  <param>
+    <name>exitafter</name>
+    <key>exitafter</key>
+    <value>int(1e6)</value>
+    <type>int</type>
+  </param>
+
   <sink>
     <name>in</name>
     <type>float</type>

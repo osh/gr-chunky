@@ -46,7 +46,7 @@ namespace gr {
        * class. chunky::sink::make is the public interface for
        * creating new instances.
        */
-      static sptr make(int maxlen);
+      static sptr make(int maxlen, int exitafter);
     };
 
   } // namespace chunky

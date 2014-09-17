@@ -29,17 +29,17 @@ namespace gr {
   namespace chunky {
 
     sink::sptr
-    sink::make(int maxlen)
+    sink::make(int maxlen, int exitafter)
     {
       return gnuradio::get_initial_sptr
-        (new sink_impl(maxlen));
+        (new sink_impl(maxlen, exitafter));
     }
 
-    sink_impl::sink_impl(int maxlen)
+    sink_impl::sink_impl(int maxlen, int exitafter)
       : gr::block("sink",
               gr::io_signature::make(0,1, sizeof(float)),
               gr::io_signature::make(0,0,0)),
-        d_nitems(0), d_npkts(0), d_ts(0)
+        d_nitems(0), d_npkts(0), d_ts(0), d_exitafter(exitafter)
     {
         message_port_register_in(pmt::mp("pdus"));
         set_msg_handler(pmt::mp("pdus"),
@@ -112,6 +112,9 @@ namespace gr {
             printf("%d,%d,%d,%f,%f\n", seq, rx_time, latency_us, tp_items, tp_pkts);
             }
         }
+
+        if(d_exitafter > 0 && d_npkts > d_exitafter)
+            throw std::runtime_error("finished");
     }
 
   }
