@@ -39,7 +39,8 @@ namespace gr {
       : gr::block("sink",
               gr::io_signature::make(0,1, sizeof(float)),
               gr::io_signature::make(0,0,0)),
-        d_nitems(0), d_npkts(0), d_ts(0), d_exitafter(exitafter)
+        d_nitems(0), d_npkts(0), d_ts(0), d_exitafter(15000)
+        //d_nitems(0), d_npkts(0), d_ts(0), d_exitafter(exitafter)
     {
         message_port_register_in(pmt::mp("pdus"));
         set_msg_handler(pmt::mp("pdus"),

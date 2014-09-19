@@ -107,7 +107,8 @@ namespace gr {
     source_impl::handler(pmt::pmt_t msg)
     {
         pmt::pmt_t vec = pmt::make_f32vector(d_max, 0);
-        std::pair<pmt::pmt_t, int> p = work_chunk(d_max, gr_vector_void_star(1, pmt::blob_writable_data(vec)) );
+        size_t arg;
+        std::pair<pmt::pmt_t, int> p = work_chunk(d_max, gr_vector_void_star(1, pmt::uniform_vector_writable_elements(vec,arg)) );
         message_port_pub(pmt::mp("pdus"), pmt::cons(p.first, vec));
     }
 
