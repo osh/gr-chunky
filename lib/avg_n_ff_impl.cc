@@ -70,10 +70,9 @@ namespace gr {
 
         std::vector<tag_t> tags;
         get_tags_in_range(tags, 0, nitems_read(0), nitems_read(0)+1);
-        //printf("tags.size=%d\n",tags.size());
         for(int i=0; i<tags.size(); i++){
             add_item_tag( 0, nitems_written(0), tags[i].key, tags[i].value, pmt::PMT_NIL );
-            //pmt::print( tags[i].key );
+//            pmt::print( tags[i].key );
             }
 
         const float *in = (const float*) input_items[0];

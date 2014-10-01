@@ -14,6 +14,7 @@
 #include "chunky/avg_n_fpdu.h"
 #include "chunky/source.h"
 #include "chunky/sink.h"
+#include "chunky/rate_measure.h"
 %}
 
 %include "chunky/replicate.h"
@@ -28,3 +29,5 @@ GR_SWIG_BLOCK_MAGIC2(chunky, avg_n_fpdu);
 GR_SWIG_BLOCK_MAGIC2(chunky, source);
 %include "chunky/sink.h"
 GR_SWIG_BLOCK_MAGIC2(chunky, sink);
+%include "chunky/rate_measure.h"
+GR_SWIG_BLOCK_MAGIC2(chunky, rate_measure);

@@ -30,7 +30,8 @@ list(APPEND chunky_sources
     replicate_fpdu_impl.cc
     avg_n_fpdu_impl.cc
     source_impl.cc
-    sink_impl.cc )
+    sink_impl.cc
+    rate_measure_impl.cc )
 
 set(chunky_sources "${chunky_sources}" PARENT_SCOPE)
 if(NOT chunky_sources)
